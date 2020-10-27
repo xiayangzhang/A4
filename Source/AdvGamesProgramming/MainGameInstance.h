@@ -27,7 +27,7 @@ public:
 	void CreateSession(FName SessionName);
 	void DestroySession(FName SessionName);
 	void FindSession();
-	void JoinSession();
+	//void JoinSession();
 
 private:
 	TSubclassOf<class UUserWidget> MainMenuWidgetClass;

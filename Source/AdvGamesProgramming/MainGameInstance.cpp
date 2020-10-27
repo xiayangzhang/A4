@@ -98,18 +98,18 @@ void UMainGameInstance::FindSession()
 	}
 }
 
-void UMainGameInstance::JoinSession()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Joining Session"));
-	if (SessionInterface.IsValid() && SessionSearch.IsValid())
-	{
-		//If there is a session in the list to join.
-		if (SessionSearch->SearchResults.Num() > 0)
-		{
-			SessionInterface->JoinSession(0, TEXT("Test Session"), SessionSearch->SearchResults[0]);
-		}
-	}
-}
+//void UMainGameInstance::JoinSession()
+//{
+//	UE_LOG(LogTemp, Warning, TEXT("Joining Session"));
+//	if (SessionInterface.IsValid() && SessionSearch.IsValid())
+//	{
+//		//If there is a session in the list to join.
+//		if (SessionSearch->SearchResults.Num() > 0)
+//		{
+//			SessionInterface->JoinSession(0, TEXT("Test Session"), SessionSearch->SearchResults[0]);
+//		}
+//	}
+//}
 
 void UMainGameInstance::OnCreateSessionComplete(FName SessionName, bool bSuccess)
 {
@@ -153,7 +153,7 @@ void UMainGameInstance::OnFindSessionComplete(bool bSuccess)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Found Session: %s"), *SearchResult.GetSessionIdStr())
 		}
-		JoinSession();
+		//JoinSession();
 	}
 	else
 	{
