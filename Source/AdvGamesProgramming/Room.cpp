@@ -26,10 +26,10 @@ void ARoom::Tick(float DeltaTime)
 }
 void ARoom::GenEnemy()
 {
-    AEnemyCharacter* NewEnemy = GetWorld()->SpawnActor<AEnemyCharacter>(Enemy, GenRandomPos(), FRotator(0.0f, 0.f, 0.f));
-    NewEnemy->SetRoom(this);
-    HasEnemy = true;
-    UE_LOG(LogTemp, Display, TEXT("GenEnemy"));
+//    AEnemyCharacter* NewEnemy = GetWorld()->SpawnActor<AEnemyCharacter>(Enemy, GenRandomPos(), FRotator(0.0f, 0.f, 0.f));
+//    NewEnemy->SetRoom(this);
+//    HasEnemy = true;
+//    UE_LOG(LogTemp, Display, TEXT("GenEnemy"));
 
 }
 FVector ARoom::GenRandomPos()

@@ -125,7 +125,7 @@ void UMainGameInstance::OnCreateSessionComplete(FName SessionName, bool bSuccess
 			GetFirstLocalPlayerController()->SetInputMode(InputState);
 			World->ServerTravel(TEXT("/Game/Levels/MultiplayerMap?listen"));
 		}
-		//FindSession();
+		FindSession();
 	}
 	else
 	{

@@ -16,23 +16,23 @@ void AMultiplayerGameMode::InitGame(const FString& MapName, const FString& Optio
 	Super::InitGame(MapName, Options, ErrorMessages);
 
 	//Find the procedurally generated map in the world
-	for (TActorIterator<AProcedurallyGeneratedMap> It(GetWorld()); It; ++It)
-	{
-		ProceduralMap = *It;
-	}
+//	for (TActorIterator<AProcedurallyGeneratedMap> It(GetWorld()); It; ++It)
+//	{
+//		ProceduralMap = *It;
+//	}
 
 	//Spawn the pickup manager on the server
-	PickupManager = GetWorld()->SpawnActor<APickupManager>();
-
-	//Initialise the pickup manager variables
-	if (PickupManager && ProceduralMap)
-	{
-		PickupManager->Init(ProceduralMap->Vertices, WeaponPickupClass, 10.0f);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Unable to find the procedural map or unable to spawn the pickup manager"));
-	}
+//	PickupManager = GetWorld()->SpawnActor<APickupManager>();
+//
+//	//Initialise the pickup manager variables
+//	if (PickupManager && ProceduralMap)
+//	{
+//		PickupManager->Init(ProceduralMap->Vertices, WeaponPickupClass, 10.0f);
+//	}
+//	else
+//	{
+//		UE_LOG(LogTemp, Error, TEXT("Unable to find the procedural map or unable to spawn the pickup manager"));
+//	}
 }
 
 void AMultiplayerGameMode::Respawn(AController* Controller)
