@@ -87,8 +87,9 @@ void AEnemyCharacter::AgentEvade()
 
 void AEnemyCharacter::SensePlayer(AActor* SensedActor, FAIStimulus Stimulus)
 {
-   //  UE_LOG(LogTemp, Display, TEXT("Sense  %s"), *SensedActor->GetName())
+     UE_LOG(LogTemp, Display, TEXT("Sense  %s"), *SensedActor->GetName())
     //step 13-> setp14 bp player tag
+
          if (SensedActor->ActorHasTag("player")) {
              if (Stimulus.WasSuccessfullySensed())
              {
