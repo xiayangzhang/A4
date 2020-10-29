@@ -122,7 +122,7 @@ void AMazeBuilder::GenerateWalls(float far,float close,float left,float right){
     
     
     
-    WallMeshs->CreateMeshSection(section, NewVertices, TempTriangles, TempNormals, TempUVCoords, TArray<FColor>(), TempTangents, true);
+    WallMeshs->CreateMeshSection(section, NewVertices, TempTriangles, TempNormals, NewUVCoords, TArray<FColor>(), TempTangents, true);
     WallMeshs->SetMaterial(section,WallMaterial);
     
     section+=1;
