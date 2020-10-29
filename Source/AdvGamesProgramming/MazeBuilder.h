@@ -7,6 +7,8 @@
 #include "Room.h"
 #include "EnemyCharacter.h"
 #include "KismetProceduralMeshLibrary.h"
+#include "Materials/Material.h"
+#include "Materials/MaterialInstance.h"
 #include "MazeBuilder.generated.h"
 
 UCLASS()
@@ -26,11 +28,15 @@ public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+     UMaterialInterface* floorMaterial;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+     UMaterialInterface* WallMaterial;
     
-    UPROPERTY(VisibleAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     UProceduralMeshComponent* FloorMesh;
-    UPROPERTY(VisibleAnywhere)
-     UProceduralMeshComponent* WallMeshs;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UProceduralMeshComponent* WallMeshs;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     float MapWidth;
@@ -50,10 +56,15 @@ public:
         TSubclassOf<AActor> endgame;
     int totalVertices;
     
+    int section;
+    
     int RoomID;
     
     TArray<FVector> WallVertices;
     TArray<int32> WallTriangles;
+    TArray<FVector2D> WallUVCoords;
+    TArray<FVector> WallNormals;
+    TArray<FProcMeshTangent> WallTangents;
 
     TArray<ARoom*> Rooms;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)

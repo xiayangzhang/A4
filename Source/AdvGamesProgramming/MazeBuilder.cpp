@@ -38,7 +38,9 @@ void AMazeBuilder::BeginPlay()
    const FRotator rotaction = GetActorRotation();
    GetWorld()->SpawnActor<AActor>(endgame, loaction, rotaction);
 
- WallMeshs->CreateMeshSection(0, WallVertices, WallTriangles, TArray<FVector>(), TArray<FVector2D>(), TArray<FColor>(), TArray<FProcMeshTangent>(), true);
+   UKismetProceduralMeshLibrary::CalculateTangentsForMesh(WallVertices, WallTriangles, WallUVCoords, WallNormals, WallTangents);
+    
+// WallMeshs->CreateMeshSection(0, WallVertices, WallTriangles, TArray<FVector>(),WallUVCoords, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
     
     FNavigationSystem::UpdateComponentData(*FloorMesh);
     //FNavigationSystem::UpdateComponentData(*WallMeshs);
@@ -83,51 +85,125 @@ void AMazeBuilder::Generatefloor(){
         Triangles.Add(1);
         Triangles.Add(2);
     
-        FloorMesh->CreateMeshSection(0, Vertices, Triangles,  TArray<FVector>(), TArray<FVector2D>(), TArray<FColor>(), TArray<FProcMeshTangent>(), true);
+    TArray<FVector2D> UVCoords;
+    UVCoords.Add(FVector2D(0.0f, 0.0f));
+    UVCoords.Add(FVector2D(0.0f, 1.0f));
+    UVCoords.Add(FVector2D(1.0f, 1.0f));
+    UVCoords.Add(FVector2D(1.0f, 0.0f));
+    FloorMesh->CreateMeshSection(0, Vertices, Triangles,  TArray<FVector>(), UVCoords, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
+    
+  //  FloorMesh->SetMaterial(0,floorMaterial);
 }
 
 
 void AMazeBuilder::GenerateWalls(float far,float close,float left,float right){
-    if(far<close||right<left){
-        return;
+
+    FVector BoxRadius = FVector((right-left)/2,(far-close)/2,WallHeight);
+    TArray<FVector> TempVertices;
+    TArray<int32> TempTriangles;
+    TArray<FVector2D> TempUVCoords;
+    TArray<FVector> TempNormals;
+    TArray<FProcMeshTangent> TempTangents;
+    UKismetProceduralMeshLibrary::GenerateBoxMesh(BoxRadius,TempVertices,TempTriangles,TempNormals,TempUVCoords,TempTangents);
+    
+    //TArray<FVector> NewVertices;
+    FVector BoxPos = FVector(left+(right-left)/2,close+(far-close)/2,0);
+    TArray<FVector> NewVertices;
+    for (int i = 0; i < TempVertices.Num(); i++) {
+        FVector Vertice =TempVertices[i]+BoxPos ;
+
+        NewVertices.Add(Vertice);
     }
-   UE_LOG(LogTemp, Warning, TEXT("GenerateWalls"));
+    TArray<FVector2D> NewUVCoords;
+    for (int i = 0; i < TempUVCoords.Num(); i++) {
+        FVector2D newUV =FVector2D(TempUVCoords[i].X*WallHeight, TempUVCoords[i].Y*WallHeight) ;
+          NewUVCoords.Add(newUV);
+      }
+    
+    
+    
+    WallMeshs->CreateMeshSection(section, NewVertices, TempTriangles, TempNormals, TempUVCoords, TArray<FColor>(), TempTangents, true);
+    WallMeshs->SetMaterial(section,WallMaterial);
+    
+    section+=1;
 
-    WallVertices.Add(FVector(close, left, 0));
-    WallVertices.Add(FVector(close, left, WallHeight));
-    WallVertices.Add(FVector(close, right, 0));
-    WallVertices.Add(FVector(close, right, WallHeight));
-    WallVertices.Add(FVector(far, left, 0));
-    WallVertices.Add(FVector(far, left, WallHeight));
-    WallVertices.Add(FVector(far, right, WallHeight));
-    WallVertices.Add(FVector(far, right, 0));
-
-    //Back face of cube
-    AddTriangle(0, 2, 3);
-    AddTriangle(3, 1, 0);
-
-    //Left face of cube
-    AddTriangle(0, 1, 4);
-    AddTriangle(4, 1, 5);
-
-    //Front face of cube
-    AddTriangle(4, 5, 7);
-    AddTriangle(7, 5, 6);
-
-    //Right face of cube
-    AddTriangle(7, 6, 3);
-    AddTriangle(3, 2, 7);
-
-    //Top face
-    AddTriangle(1, 3, 5);
-    AddTriangle(6, 5, 3);
-
-    //bottom face
-    AddTriangle(2, 0, 4);
-    AddTriangle(4, 7, 2);
-    totalVertices+=8;
-
-       
+    //    if(far<close||right<left){
+//        return;
+//    }
+//   UE_LOG(LogTemp, Warning, TEXT("GenerateWalls"));
+//
+//    WallVertices.Add(FVector(close, left, 0));
+//    WallVertices.Add(FVector(close, left, WallHeight));
+//    WallVertices.Add(FVector(close, right, 0));
+//    WallVertices.Add(FVector(close, right, WallHeight));
+//    WallVertices.Add(FVector(far, left, 0));
+//    WallVertices.Add(FVector(far, left, WallHeight));
+//    WallVertices.Add(FVector(far, right, WallHeight));
+//    WallVertices.Add(FVector(far, right, 0));
+//
+//
+//    //Back face of cube
+//    AddTriangle(0, 2, 3);
+//    AddTriangle(3, 1, 0);
+//
+//
+//    WallUVCoords.Add(FVector2D(0.0f, 0.0f));
+//    WallUVCoords.Add(FVector2D(0.0f, 1.0f));
+//    WallUVCoords.Add(FVector2D((left-right)/WallHeight, 1.0f));
+//    WallUVCoords.Add(FVector2D((left-right)/WallHeight, 0.0f));
+//
+//
+//    //Left face of cube
+//    AddTriangle(0, 1, 4);
+//    AddTriangle(4, 1, 5);
+//
+//    WallUVCoords.Add(FVector2D(0.0f, 0.0f));
+//    WallUVCoords.Add(FVector2D(0.0f, 1.0f));
+//    WallUVCoords.Add(FVector2D((far-close)/WallHeight, 1.0f));
+//    WallUVCoords.Add(FVector2D((far-close)/WallHeight, 0.0f));
+//
+//
+//    //Front face of cube
+//    AddTriangle(4, 5, 7);
+//    AddTriangle(7, 5, 6);
+//
+//    WallUVCoords.Add(FVector2D(0.0f, 0.0f));
+//    WallUVCoords.Add(FVector2D(0.0f, 1.0f));
+//    WallUVCoords.Add(FVector2D((left-right)/WallHeight, 1.0f));
+//    WallUVCoords.Add(FVector2D((left-right)/WallHeight, 0.0f));
+//
+//    //Right face of cube
+//    AddTriangle(7, 6, 3);
+//    AddTriangle(3, 2, 7);
+//
+//    WallUVCoords.Add(FVector2D(0.0f, 0.0f));
+//    WallUVCoords.Add(FVector2D(0.0f, 1.0f));
+//    WallUVCoords.Add(FVector2D((far-close)/WallHeight, 1.0f));
+//    WallUVCoords.Add(FVector2D((far-close)/WallHeight, 0.0f));
+//
+//    //Top face
+//    AddTriangle(1, 3, 5);
+//    AddTriangle(6, 5, 3);
+//
+//     WallUVCoords.Add(FVector2D(close, left));
+//     WallUVCoords.Add(FVector2D(close, right));
+//     WallUVCoords.Add(FVector2D(far, right));
+//     WallUVCoords.Add(FVector2D(far, left));
+//
+//
+//    //bottom face
+//    AddTriangle(2, 0, 4);
+//    AddTriangle(4, 7, 2);
+//
+//   WallUVCoords.Add(FVector2D(close/WallWidth, left/WallWidth));
+//   WallUVCoords.Add(FVector2D(close/WallWidth, right/WallWidth));
+//   WallUVCoords.Add(FVector2D(far/WallWidth, right/WallWidth));
+//   WallUVCoords.Add(FVector2D(far/WallWidth, left/WallWidth));
+//
+//
+//    totalVertices+=8;
+//
+//
 }
 void AMazeBuilder::ClearMeshData(){
    UE_LOG(LogTemp, Warning, TEXT("ClearMeshData"));
