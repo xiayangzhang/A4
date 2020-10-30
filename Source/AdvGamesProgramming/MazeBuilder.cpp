@@ -114,12 +114,24 @@ void AMazeBuilder::GenerateWalls(float far,float close,float left,float right){
 
         NewVertices.Add(Vertice);
     }
-    TArray<FVector2D> NewUVCoords;
-    for (int i = 0; i < TempUVCoords.Num(); i++) {
-        FVector2D newUV =FVector2D(TempUVCoords[i].X*WallHeight, TempUVCoords[i].Y*WallHeight) ;
-          NewUVCoords.Add(newUV);
-      }
+//    TArray<FVector2D> NewUVCoords;
+//    for (int i = 0; i < TempUVCoords.Num(); i++) {
+//        FVector2D newUV =FVector2D(TempUVCoords[i].X*WallHeight, TempUVCoords[i].Y*WallHeight) ;
+//          NewUVCoords.Add(newUV);
+//      }
+//
     
+    
+//
+//        NewVertices.Add(FVector(close, left, 0));
+//        NewVertices.Add(FVector(close, left, WallHeight));
+//        NewVertices.Add(FVector(close, right, 0));
+//        NewVertices.Add(FVector(close, right, WallHeight));
+//        NewVertices.Add(FVector(far, left, 0));
+//        NewVertices.Add(FVector(far, left, WallHeight));
+//        NewVertices.Add(FVector(far, right, WallHeight));
+//        NewVertices.Add(FVector(far, right, 0));
+//
     
     
     WallMeshs->CreateMeshSection(section, NewVertices, TempTriangles, TempNormals, TempUVCoords, TArray<FColor>(), TempTangents, true);
@@ -132,15 +144,7 @@ void AMazeBuilder::GenerateWalls(float far,float close,float left,float right){
 //    }
 //   UE_LOG(LogTemp, Warning, TEXT("GenerateWalls"));
 //
-//    WallVertices.Add(FVector(close, left, 0));
-//    WallVertices.Add(FVector(close, left, WallHeight));
-//    WallVertices.Add(FVector(close, right, 0));
-//    WallVertices.Add(FVector(close, right, WallHeight));
-//    WallVertices.Add(FVector(far, left, 0));
-//    WallVertices.Add(FVector(far, left, WallHeight));
-//    WallVertices.Add(FVector(far, right, WallHeight));
-//    WallVertices.Add(FVector(far, right, 0));
-//
+
 //
 //    //Back face of cube
 //    AddTriangle(0, 2, 3);
