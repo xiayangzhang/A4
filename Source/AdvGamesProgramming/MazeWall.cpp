@@ -11,8 +11,8 @@ AMazeWall::AMazeWall()
 	PrimaryActorTick.bCanEverTick = true;
 
     WallMeshs = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("Wall"));
-   // WallMeshs->AttachTo(this->RootComponent);
-    //WallTopMeshs = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("WallTopMeshs"));
+    WallMeshs->AttachTo(this->RootComponent);
+   // WallTopMeshs = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("WallTopMeshs"));
    // WallTopMeshs->AttachTo(this->RootComponent);
 }
 
@@ -33,6 +33,8 @@ void AMazeWall::Tick(float DeltaTime)
 void AMazeWall::GenerateWalls(float Width,float Length,float WallHeight){
     
         WallMeshs->ClearAllMeshSections();
+       // WallTopMeshs->ClearAllMeshSections();
+
        // FVector BoxRadius = FVector((right-left)/2,(far-close)/2,WallHeight);
         TArray<FVector> TempVertices;
         TArray<int32> TempTriangles;
@@ -44,7 +46,7 @@ void AMazeWall::GenerateWalls(float Width,float Length,float WallHeight){
     
         UKismetProceduralMeshLibrary::GenerateBoxMesh(BoxRadius,TempVertices,TempTriangles,TempNormals,TempUVCoords,TempTangents);
 
-        WallMeshs->CreateMeshSection(0, TempVertices, TempTriangles, TempNormals, TempUVCoords, TArray<FColor>(), TempTangents, true);
+//        WallMeshs->CreateMeshSection(0, TempVertices, TempTriangles, TempNormals, TempUVCoords, TArray<FColor>(), TempTangents, true);
   
     
     int TopPos =-Length/2+100;
@@ -59,18 +61,20 @@ void AMazeWall::GenerateWalls(float Width,float Length,float WallHeight){
 //
 //    }
     
-//    while(TopPos<Length/2-100){
-//        int RandMesh =1 + rand()%2;
-//
-//        GenerateWallTops(TopPos,0,WallHeight/2+RandomFloat(-20,-50),RandMesh);
-//        TopPos+=RandomFloat(100,-50);
-//
-//    }
-    //GenerateWallTops(Length/2-200,0,WallHeight/2+RandomFloat(0,-5),3);
-    GenerateWallTops(-Length/2+100,0,WallHeight/2+RandomFloat(-20,-50),2);
-    GenerateWallTops(Length/2-100,0,WallHeight/2+RandomFloat(-20,-50),1);
-    //GenerateWallTops(0,0,WallHeight/2,2);
+    // while(TopPos<Length/2-100){
+    //     int RandMesh =1 + rand()%2;
 
+    //     GenerateWallTops(TopPos,0,WallHeight/2+RandomFloat(-20,-50),RandMesh);
+    //     TopPos+=RandomFloat(60,40);
+
+    // }
+    //GenerateWallTops(Length/2-200,0,WallHeight/2+RandomFloat(0,-5),3);
+    GenerateWallTops(-Length/2+70,0,WallHeight/2+RandomFloat(-20,-50),2);
+    GenerateWallTops(Length/2-70,0,WallHeight/2+RandomFloat(-20,-50),1);
+    GenerateWallTops(-Length/2+70,0,WallHeight/2+RandomFloat(-20,-50),1);
+    GenerateWallTops(Length/2-70,0,WallHeight/2+RandomFloat(-20,-50),2);
+    //GenerateWallTops(0,0,WallHeight/2,2);
+       WallMeshs->CreateMeshSection(1, Vertices, Triangles, Normals, UVCoords, TArray<FColor>(), Tangents, false);
 
 }
 float AMazeWall::RandomFloat(float a, float b){
@@ -81,6 +85,7 @@ float AMazeWall::RandomFloat(float a, float b){
 }
 
 void AMazeWall::GenerateWallTops(float LengthOffSet,float WidthOffSet,float HeightOffSet,int MeshIndex){
+    
             UStaticMesh* NeWallTop =wallTop1;
             if(MeshIndex==1){
                 NeWallTop = wallTop1;
@@ -100,7 +105,7 @@ void AMazeWall::GenerateWallTops(float LengthOffSet,float WidthOffSet,float Heig
         UKismetProceduralMeshLibrary::GetSectionFromStaticMesh
         (
             NeWallTop,
-            0,
+            5,
             0,
             TopVertices,
             TopTriangles,
@@ -111,17 +116,45 @@ void AMazeWall::GenerateWallTops(float LengthOffSet,float WidthOffSet,float Heig
     
     FVector pos = FVector(LengthOffSet,WidthOffSet,HeightOffSet);
     
-    
-
-        TArray<FVector> NewVertices;
+      TArray<FVector> NewVertices;
     //TopVertices
         for (int i = 0; i < TopVertices.Num(); i++) {
             FVector Vertice =TopVertices[i]+pos ;
-            NewVertices.Add(Vertice);
+            Vertices.Add(Vertice);
         }
-    
+//
+//       // TArray<FVector> NewVertices;
+//    //TopVertices
+//        for (int i = 0; i < TopVertices.Num(); i++) {
+//           // FVector Vertice =TopVertices[i]+pos ;
+//            Vertices.Add(TopVertices[i]+pos);
+//        }
+//
+//    for (int i = 0; i < TopTriangles.Num(); i++) {
+//        Triangles.Add(TopTriangles[i]+TopVertices.Num());
+//    }
+//
+//    for (int i = 0; i < TopNormals.Num(); i++) {
+//         //FVector Triangles =TopTriangles[i]+TopVertices.Num() ;
+//         Normals.Add(TopNormals[i]+pos);
+//     }
+//
+//    for (int i = 0; i < TopUVCoords.Num(); i++) {
+//         //FVector Triangles =TopTriangles[i]+TopVertices.Num() ;
+//         UVCoords.Add(TopUVCoords[i]);
+//     }
+//    for (int i = 0; i < TopTangents.Num(); i++) {
+//         //FVector Triangles =TopTriangles[i]+TopVertices.Num() ;
+//         Tangents.Add(TopTangents[i]);
+//     }
     section+=1;
-        WallMeshs->CreateMeshSection(section, NewVertices, TopTriangles, TopNormals, TopUVCoords, TArray<FColor>(), TopTangents, false);
 
+        WallMeshs->CreateMeshSection(section, NewVertices, TopTriangles, TopNormals, TopUVCoords, TArray<FColor>(), TopTangents, false);
+   // section+=1;
+
+    
+    
+    
+    
     
 }
