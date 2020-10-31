@@ -11,6 +11,9 @@ AMazeWall::AMazeWall()
 	PrimaryActorTick.bCanEverTick = true;
 
     WallMeshs = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("Wall"));
+   // WallMeshs->AttachTo(this->RootComponent);
+    //WallTopMeshs = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("WallTopMeshs"));
+   // WallTopMeshs->AttachTo(this->RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -44,24 +47,30 @@ void AMazeWall::GenerateWalls(float Width,float Length,float WallHeight){
         WallMeshs->CreateMeshSection(0, TempVertices, TempTriangles, TempNormals, TempUVCoords, TArray<FColor>(), TempTangents, true);
   
     
-    int TopPos =-Length/2+150;
-    int base =-Length/2+150;
+    int TopPos =-Length/2+100;
+   // int base =-Length/2+150;
     
-    while(base<Length/2-150){
-      
-        GenerateWallTops(base,0,WallHeight/2+RandomFloat(0,-5),3);
-        base+=RandomFloat(100,300);
-
-    }
+//    while(base<Length/2-150){
+//
+//        GenerateWallTops(base,-Width/2,WallHeight/2+RandomFloat(0,-5),3);
+//        GenerateWallTops(base, Width/2,WallHeight/2+RandomFloat(0,-5),3);
+//
+//        base+=RandomFloat(100,300);
+//
+//    }
     
-    while(TopPos<Length/2-150){
-        int RandMesh =1 + rand()%2;
-        
-        GenerateWallTops(TopPos,0,WallHeight/2+RandomFloat(-30,-50),RandMesh);
-        TopPos+=RandomFloat(200,100);
+//    while(TopPos<Length/2-100){
+//        int RandMesh =1 + rand()%2;
+//
+//        GenerateWallTops(TopPos,0,WallHeight/2+RandomFloat(-20,-50),RandMesh);
+//        TopPos+=RandomFloat(100,-50);
+//
+//    }
+    //GenerateWallTops(Length/2-200,0,WallHeight/2+RandomFloat(0,-5),3);
+    GenerateWallTops(-Length/2+100,0,WallHeight/2+RandomFloat(-20,-50),2);
+    GenerateWallTops(Length/2-100,0,WallHeight/2+RandomFloat(-20,-50),1);
+    //GenerateWallTops(0,0,WallHeight/2,2);
 
-    }
-    GenerateWallTops(Length/2-200,0,WallHeight/2+RandomFloat(0,-5),3);
 
 }
 float AMazeWall::RandomFloat(float a, float b){
@@ -101,16 +110,18 @@ void AMazeWall::GenerateWallTops(float LengthOffSet,float WidthOffSet,float Heig
          );
     
     FVector pos = FVector(LengthOffSet,WidthOffSet,HeightOffSet);
-    section+=1;
-        TArray<FVector> NewVertices;
     
+    
+
+        TArray<FVector> NewVertices;
+    //TopVertices
         for (int i = 0; i < TopVertices.Num(); i++) {
             FVector Vertice =TopVertices[i]+pos ;
             NewVertices.Add(Vertice);
         }
-      WallMeshs->CreateMeshSection(section, NewVertices, TopTriangles, TopNormals, TopUVCoords, TArray<FColor>(), TopTangents, false);
     
-    
-       
+    section+=1;
+        WallMeshs->CreateMeshSection(section, NewVertices, TopTriangles, TopNormals, TopUVCoords, TArray<FColor>(), TopTangents, false);
+
     
 }

@@ -26,7 +26,8 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
      UProceduralMeshComponent* WallMeshs;
-    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+     UProceduralMeshComponent* WallTopMeshs;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
        UStaticMesh* wallTop1;
     
