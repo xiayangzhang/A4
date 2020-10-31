@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Room.h"
+#include "MazeWall.h"
 #include "EnemyCharacter.h"
 #include "KismetProceduralMeshLibrary.h"
 #include "Materials/Material.h"
@@ -32,11 +33,13 @@ public:
      UMaterialInterface* floorMaterial;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
      UMaterialInterface* WallMaterial;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+       UStaticMesh* wallTop;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     UProceduralMeshComponent* FloorMesh;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    UProceduralMeshComponent* WallMeshs;
+    //UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    //UProceduralMeshComponent* WallMeshs;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     float MapWidth;
@@ -73,6 +76,8 @@ public:
      UPROPERTY(EditAnywhere, BlueprintReadWrite)
      TSubclassOf<AEnemyCharacter> Enemy;
     
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TSubclassOf<AMazeWall> BPWalls;
     void GenerateMaze();
     
     void GenerateWalls(float far,float close,float left,float right);
@@ -85,6 +90,9 @@ public:
     void ClearMeshData();
     
     void MazeSplit(FVector2D botleft,FVector2D TopRight);
+    
+    void GenWallTop(FVector pos,bool HorOrVer);
+
     
     void AddTriangle(int32 V1, int32 V2, int32 V3);
 
