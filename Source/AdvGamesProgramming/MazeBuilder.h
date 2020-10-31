@@ -63,11 +63,11 @@ public:
     
     int RoomID;
     
-    TArray<FVector> WallVertices;
-    TArray<int32> WallTriangles;
-    TArray<FVector2D> WallUVCoords;
-    TArray<FVector> WallNormals;
-    TArray<FProcMeshTangent> WallTangents;
+//    TArray<FVector> WallVertices;
+//    TArray<int32> WallTriangles;
+//    TArray<FVector2D> WallUVCoords;
+//    TArray<FVector> WallNormals;
+//    TArray<FProcMeshTangent> WallTangents;
 
     TArray<ARoom*> Rooms;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)

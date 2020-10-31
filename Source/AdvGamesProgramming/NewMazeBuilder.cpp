@@ -75,13 +75,13 @@ void ANewMazeBuilder::GenerateMaze()
     
     GenerateWall(FVector(MapWidth/2,mapLength-WallWidth/2,WallHeight/2),mapLength,true);
     
-    MazeSplit(FVector2D(0, 0),FVector2D(MapWidth, mapLength));
+    MazeSplit(FVector2D(0, 0),FVector2D(MapWidth, mapLength),FVector2D(0, 0));
 }
 
-void ANewMazeBuilder::MazeSplit(FVector2D Botleft,FVector2D TopRight)
+void ANewMazeBuilder::MazeSplit(FVector2D Botleft,FVector2D TopRight,FVector2D Door)
 {
    
-    if(TopRight.X-Botleft.X<10*doorwidth||TopRight.Y-Botleft.Y<10*doorwidth){
+    if(TopRight.X-Botleft.X<6*doorwidth||TopRight.Y-Botleft.Y<6*doorwidth){
        
         ARoom* newRoom;
         FVector RoomPos =FVector(
@@ -95,9 +95,16 @@ void ANewMazeBuilder::MazeSplit(FVector2D Botleft,FVector2D TopRight)
     
         return;
     }
-    float RandY = RandomFloat(TopRight.Y-5*doorwidth,Botleft.Y+doorwidth*5);
-    float RandX = RandomFloat(TopRight.X-5*doorwidth,Botleft.X+doorwidth*5);
+    float RandY = RandomFloat(TopRight.Y-2*doorwidth,Botleft.Y+doorwidth*2);
     
+    while(RandY>(Door.Y-2*doorwidth)&&RandY<(Door.Y+2*doorwidth)){
+        RandY = RandomFloat(TopRight.Y-2*doorwidth,Botleft.Y+doorwidth*2);
+    }
+    
+    float RandX = RandomFloat(TopRight.X-2*doorwidth,Botleft.X+doorwidth*2);
+    while(RandX>(Door.X-2*doorwidth)&&RandX<(Door.X+2*doorwidth)){
+          RandX = RandomFloat(TopRight.X-2*doorwidth,Botleft.X+doorwidth*2);
+      }
     int RandDoor =1 + rand()%4;
     //int RandDoor = 3;
 
@@ -138,27 +145,29 @@ GenerateWall(FVector(RandX,RandY-(RandY-(LEFTDoorPos+doorwidth/2))/2,WallHeight/
        GenerateWall(FVector(RandX,((RightDoorPos-doorwidth/2)-RandY)/2+RandY,WallHeight/2),((RightDoorPos-doorwidth/2)-RandY),false);
         GenerateWall(FVector(RandX,TopRight.Y-(TopRight.Y-(RightDoorPos+doorwidth/2))/2,WallHeight/2),(TopRight.Y-(RightDoorPos+doorwidth/2)),false);
     }
-      MazeSplit(FVector2D(Botleft.X, RandY),FVector2D(RandX, TopRight.Y));
-    
-      MazeSplit(FVector2D(RandX, RandY),FVector2D(TopRight.X, TopRight.Y));
-
-      MazeSplit(FVector2D(Botleft.X, Botleft.Y),FVector2D(RandX, RandY));
-      
-      MazeSplit(FVector2D(RandX, Botleft.Y),FVector2D(TopRight.X, RandY));
-
+    //bot right
+    //  MazeSplit(FVector2D(Botleft.X, RandY),FVector2D(RandX, TopRight.Y),FVector2D(RightDoorPos, BOTDoorPos));
+    MazeSplit(FVector2D(Botleft.X, RandY),FVector2D(RandX, TopRight.Y),FVector2D(BOTDoorPos, RightDoorPos));
+    //top right
+     // MazeSplit(FVector2D(RandX, RandY),FVector2D(TopRight.X, TopRight.Y),FVector2D(RightDoorPos, TOPDoorPos));
+    MazeSplit(FVector2D(RandX, RandY),FVector2D(TopRight.X, TopRight.Y),FVector2D(TOPDoorPos, RightDoorPos));
+//bot left
+    // MazeSplit(FVector2D(Botleft.X, Botleft.Y),FVector2D(RandX, RandY),FVector2D(LEFTDoorPos, BOTDoorPos));
+    MazeSplit(FVector2D(Botleft.X, Botleft.Y),FVector2D(RandX, RandY),FVector2D(BOTDoorPos, LEFTDoorPos));
+   //top left
+     // MazeSplit(FVector2D(RandX, Botleft.Y),FVector2D(TopRight.X, RandY),FVector2D(LEFTDoorPos, TOPDoorPos));
+ MazeSplit(FVector2D(RandX, Botleft.Y),FVector2D(TopRight.X, RandY),FVector2D(TOPDoorPos, LEFTDoorPos));
        return;
 }
 
 void ANewMazeBuilder::GenerateWall(FVector pos,float WallLength,bool Rotation){
     
-       AMazeWall* newWall =  GetWorld( )->SpawnActor<AMazeWall>(BPWalls, pos, FRotator(0.0f, 0, 00.f));
-    if(Rotation==true){
-        newWall->GenerateWalls(WallLength+WallWidth/2,WallWidth, WallHeight);
-
-    }
-    if(Rotation==false)
+    //   AMazeWall* newWall =  GetWorld( )->SpawnActor<AMazeWall>(BPWalls, pos, FRotator(0.0f, 0, 00.f));
+     AMazeWall* newWall =  GetWorld( )->SpawnActor<AMazeWall>(BPWalls, pos, FRotator(0.0f, 0.0f, 00.f));
+    newWall->GenerateWalls(WallWidth,WallLength+WallWidth/2, WallHeight);
+ if(Rotation==false)
     {
-        newWall->GenerateWalls(WallWidth,WallLength+WallWidth/2, WallHeight);
+        newWall->SetActorRotation(FRotator(0.0f, 90.0f, 00.f), ETeleportType::ResetPhysics);
     }
 }
 

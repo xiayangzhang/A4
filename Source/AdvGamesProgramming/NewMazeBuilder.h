@@ -62,7 +62,7 @@ public:
 
     void GenerateWall(FVector pos,float WallLength,bool Rotation);
     
-    void MazeSplit(FVector2D botleft,FVector2D TopRight);
+    void MazeSplit(FVector2D botleft,FVector2D TopRight,FVector2D Door);
 
     float RandomFloat(float a, float b);
 

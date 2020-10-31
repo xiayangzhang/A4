@@ -26,10 +26,28 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
      UProceduralMeshComponent* WallMeshs;
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+       UStaticMesh* wallTop1;
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+       UStaticMesh* wallTop2;
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+        UStaticMesh* wallTop3;
     int section;
     
-    void GenerateWalls(float Width,float Length,float WallHeight);
+    TArray<FVector> Vertices;
+    TArray<int32> Triangles;
+    TArray<FVector2D> UVCoords;
+    TArray<FVector> Normals;
+    TArray<FProcMeshTangent> Tangents;
+    
+    
+    
+    void GenerateWalls(float Length,float Width,float WallHeight);
 
     float RandomFloat(float a, float b);
 
+     void GenerateWallTops(float LengthOffSet,float WidthOffSet,float HeightOffSet,int MeshIndex);
 };

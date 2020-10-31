@@ -29,7 +29,7 @@ void AMazeWall::Tick(float DeltaTime)
 
 void AMazeWall::GenerateWalls(float Width,float Length,float WallHeight){
     
-//
+        WallMeshs->ClearAllMeshSections();
        // FVector BoxRadius = FVector((right-left)/2,(far-close)/2,WallHeight);
         TArray<FVector> TempVertices;
         TArray<int32> TempTriangles;
@@ -37,26 +37,31 @@ void AMazeWall::GenerateWalls(float Width,float Length,float WallHeight){
         TArray<FVector> TempNormals;
         TArray<FProcMeshTangent> TempTangents;
     
-     FVector BoxRadius = FVector(Width/2,Length/2,WallHeight/2);
+     FVector BoxRadius = FVector(Length/2,Width/2,WallHeight/2);
     
-UKismetProceduralMeshLibrary::GenerateBoxMesh(BoxRadius,TempVertices,TempTriangles,TempNormals,TempUVCoords,TempTangents);
-//
-//        //TArray<FVector> NewVertices;
-//        FVector BoxPos = FVector(left+(right-left)/2,close+(far-close)/2,0);
-//        TArray<FVector> NewVertices;
-//        for (int i = 0; i < TempVertices.Num(); i++) {
-//            FVector Vertice =TempVertices[i]+BoxPos ;
-//
-//            NewVertices.Add(Vertice);
-//        }
-        WallMeshs->CreateMeshSection(section, TempVertices, TempTriangles, TempNormals, TempUVCoords, TArray<FColor>(), TempTangents, true);
-    //WallMeshs->SetMaterial(section,WallMaterial);
-//
-//        section+=1;
-//
-//        FVector wallpos =FVector(left+(right-left)/2,close+(far-close)/2,WallHeight);
-//       // GenWallTop(wallpos,false);
-//
+        UKismetProceduralMeshLibrary::GenerateBoxMesh(BoxRadius,TempVertices,TempTriangles,TempNormals,TempUVCoords,TempTangents);
+
+        WallMeshs->CreateMeshSection(0, TempVertices, TempTriangles, TempNormals, TempUVCoords, TArray<FColor>(), TempTangents, true);
+  
+    
+    int TopPos =-Length/2+150;
+    int base =-Length/2+150;
+    
+    while(base<Length/2-150){
+      
+        GenerateWallTops(base,0,WallHeight/2+RandomFloat(0,-5),3);
+        base+=RandomFloat(100,300);
+
+    }
+    
+    while(TopPos<Length/2-150){
+        int RandMesh =1 + rand()%2;
+        
+        GenerateWallTops(TopPos,0,WallHeight/2+RandomFloat(-30,-50),RandMesh);
+        TopPos+=RandomFloat(200,100);
+
+    }
+    GenerateWallTops(Length/2-200,0,WallHeight/2+RandomFloat(0,-5),3);
 
 }
 float AMazeWall::RandomFloat(float a, float b){
@@ -64,4 +69,48 @@ float AMazeWall::RandomFloat(float a, float b){
     float diff = b - a;
     float r = random * diff;
     return a + r;
+}
+
+void AMazeWall::GenerateWallTops(float LengthOffSet,float WidthOffSet,float HeightOffSet,int MeshIndex){
+            UStaticMesh* NeWallTop =wallTop1;
+            if(MeshIndex==1){
+                NeWallTop = wallTop1;
+    }
+           if(MeshIndex==2){
+                 NeWallTop = wallTop2;
+    }
+         if(MeshIndex==3){
+                 NeWallTop = wallTop3;
+    }
+           TArray<FVector> TopVertices;
+            TArray<int32> TopTriangles;
+            TArray<FVector2D> TopUVCoords;
+            TArray<FVector> TopNormals;
+            TArray<FProcMeshTangent> TopTangents;
+    
+        UKismetProceduralMeshLibrary::GetSectionFromStaticMesh
+        (
+            NeWallTop,
+            0,
+            0,
+            TopVertices,
+            TopTriangles,
+            TopNormals,
+            TopUVCoords,
+            TopTangents
+         );
+    
+    FVector pos = FVector(LengthOffSet,WidthOffSet,HeightOffSet);
+    section+=1;
+        TArray<FVector> NewVertices;
+    
+        for (int i = 0; i < TopVertices.Num(); i++) {
+            FVector Vertice =TopVertices[i]+pos ;
+            NewVertices.Add(Vertice);
+        }
+      WallMeshs->CreateMeshSection(section, NewVertices, TopTriangles, TopNormals, TopUVCoords, TArray<FColor>(), TopTangents, false);
+    
+    
+       
+    
 }
