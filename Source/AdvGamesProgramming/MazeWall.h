@@ -26,8 +26,8 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
      UProceduralMeshComponent* WallMeshs;
-    //UPROPERTY(EditAnywhere, BlueprintReadWrite)
-   //  UProceduralMeshComponent* WallTopMeshs;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+     UProceduralMeshComponent* WallTopMeshs;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
        UStaticMesh* wallTop1;
     
@@ -43,12 +43,17 @@ public:
     TArray<FVector2D> UVCoords;
     TArray<FVector> Normals;
     TArray<FProcMeshTangent> Tangents;
-    
-    
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float WallWidth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float WallLength;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float WalHeight;
     
     void GenerateWalls(float Length,float Width,float WallHeight);
 
     float RandomFloat(float a, float b);
-
-     void GenerateWallTops(float LengthOffSet,float WidthOffSet,float HeightOffSet,int MeshIndex);
+UFUNCTION(BlueprintImplementableEvent)
+     void GenerateWallTops();
 };
