@@ -8445,6 +8445,27 @@
         </e>
       </e>
     </e>
+    <e p="C:\Program Files\Epic Games\UE_4.24\Engine\Plugins\Marketplace\RiderSourceCodeAccess" t="Include">
+      <e p="Resources" t="Include">
+        <e p="Icon128.png" t="Include" />
+      </e>
+      <e p="RiderSourceCodeAccess.uplugin" t="Include" />
+      <e p="Source" t="Include">
+        <e p="RiderSourceCodeAccess" t="Include">
+          <e p="Private" t="Include">
+            <e p="RiderPathLocatorWin" t="Include">
+              <e p="RiderPathLocator.cpp" t="Include" />
+              <e p="RiderPathLocator.h" t="Include" />
+            </e>
+            <e p="RiderSourceCodeAccessor.cpp" t="Include" />
+            <e p="RiderSourceCodeAccessor.h" t="Include" />
+            <e p="RiderSourceCodeAccessorModule.cpp" t="Include" />
+            <e p="RiderSourceCodeAccessorModule.h" t="Include" />
+          </e>
+          <e p="RiderSourceCodeAccess.Build.cs" t="Include" />
+        </e>
+      </e>
+    </e>
     <e p="C:\Program Files\Epic Games\UE_4.24\Engine\Plugins\Media\AndroidCamera" t="Include">
       <e p="AndroidCamera.uplugin" t="Include" />
       <e p="Resources" t="Include">

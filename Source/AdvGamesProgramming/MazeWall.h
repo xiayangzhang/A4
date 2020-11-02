@@ -26,8 +26,8 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
      UProceduralMeshComponent* WallMeshs;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-     UProceduralMeshComponent* WallTopMeshs;
+    // UPROPERTY(EditAnywhere, BlueprintReadWrite)
+     //UProceduralMeshComponent* WallTopMeshs;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
        UStaticMesh* wallTop1;
     
@@ -50,10 +50,10 @@ public:
 	float WallLength;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float WalHeight;
-    
+
+	//UFUNCTION(NetMulticast,Reliable)
     void GenerateWalls(float Length,float Width,float WallHeight);
 
     float RandomFloat(float a, float b);
-UFUNCTION(BlueprintImplementableEvent)
-     void GenerateWallTops();
+     void GenerateWallTops(float length,float width,float height,int Mesh);
 };
