@@ -210,6 +210,10 @@ float ANewMazeBuilder::RandomFloatForDoor(float a, float b,float DoorPos)
     
 }
 
+	float ANewMazeBuilder::newRandomFloat(float a, float b) {
+	return FMath::RandRange(a, b);
+}
+
 
 
 

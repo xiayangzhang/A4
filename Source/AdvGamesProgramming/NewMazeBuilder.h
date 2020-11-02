@@ -48,8 +48,8 @@ public:
        float doorwidth;
     
         int RoomID;
-    
-    TArray<ARoom*> Rooms;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<ARoom*> Rooms;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TSubclassOf<ARoom> BPRoom;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -71,7 +71,10 @@ public:
 	//UFUNCTION(NetMulticast ,reliable)
     void MazeSplit(FVector2D botleft,FVector2D TopRight,FVector2D Door);
 
+
     float RandomFloat(float a, float b);
 	float RandomFloatForDoor(float a, float b,float DoorPos);
+	UFUNCTION(BlueprintCallable)
+	float newRandomFloat(float a, float b);
 
 };
