@@ -55,19 +55,19 @@ for(int i = -Length/2+100;i<Length/2-120;i+=50)
 	{
 		RandMesh=3;
 		i+=50;
-		GenerateWallTops(i,0,Height/2+RandomFloat(0,-10),3);
+		GenerateWallTops(i,0,Height/2+RandomFloat(-10,0),3);
 
 	}else
 	{
-		GenerateWallTops(i,0,Height/2+RandomFloat(-30,-50),RandMesh);
+		GenerateWallTops(i,0,Height/2+RandomFloat(-50,-30),RandMesh);
 
 	}
 }
 
-   GenerateWallTops(-Length/2+65,0,Height/2+RandomFloat(-30,-50),2);
-  GenerateWallTops(Length/2-65,0,Height/2+RandomFloat(-30,-50),1);
-   GenerateWallTops(-Length/2+65,0,Height/2+RandomFloat(-30,-50),1);
-  GenerateWallTops(Length/2-65,0,Height/2+RandomFloat(-30,-50),2);
+   GenerateWallTops(-Length/2+65,0,Height/2+RandomFloat(-50,-30),2);
+  GenerateWallTops(Length/2-65,0,Height/2+RandomFloat(-50,-30),1);
+   GenerateWallTops(-Length/2+65,0,Height/2+RandomFloat(-50,-30),1);
+  GenerateWallTops(Length/2-65,0,Height/2+RandomFloat(-50,-30),2);
  
 }
 float AMazeWall::RandomFloat(float a, float b){
