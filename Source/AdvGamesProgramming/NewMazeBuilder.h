@@ -26,7 +26,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-    
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float randomSeed;
+	
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     UProceduralMeshComponent* FloorMesh;
     
@@ -56,14 +58,18 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TSubclassOf<AMazeWall> BPWalls;
 
+	//UFUNCTION(Server,reliable)
     void GenerateMaze();
     
     void Generatefloor();
 
+	//UFUNCTION(NetMulticast ,reliable)
     void GenerateWall(FVector pos,float WallLength,bool Rotation);
-    
+
+	//UFUNCTION(NetMulticast ,reliable)
     void MazeSplit(FVector2D botleft,FVector2D TopRight,FVector2D Door);
 
     float RandomFloat(float a, float b);
+	float RandomFloatForDoor(float a, float b,float DoorPos);
 
 };

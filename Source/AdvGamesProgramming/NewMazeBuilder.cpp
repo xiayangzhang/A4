@@ -3,6 +3,7 @@
 #include "KismetProceduralMeshLibrary.h"
 #include "NavigationSystem.h"
 //#include "MazeWall.h"
+#include "Math/RandomStream.h"
 #include "NewMazeBuilder.h"
 
 // Sets default values
@@ -11,7 +12,8 @@ ANewMazeBuilder::ANewMazeBuilder()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
     FloorMesh = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("floor"));
-    FloorMesh->AttachTo(this->RootComponent);
+  //  FloorMesh->AttachTo(this->RootComponent);
+    SetRootComponent(FloorMesh);
 
     MapWidth =5000.0f;
     mapLength =5000.0f;
@@ -19,16 +21,19 @@ ANewMazeBuilder::ANewMazeBuilder()
     WallHeight= 200.0f;
     WallWidth =40.0f;
     doorwidth = 200.0f;
+    randomSeed=224;
 }
 
 // Called when the game starts or when spawned
 void ANewMazeBuilder::BeginPlay()
 {
     Super::BeginPlay();
-    Generatefloor();
+   // FRandomStream::Initialize(randomSeed);
+   // Generatefloor();
+    FMath::RandInit(randomSeed);
+
     GenerateMaze();
     FNavigationSystem::UpdateComponentData(*FloorMesh);
-
 }
 
 // Called every frame
@@ -40,7 +45,7 @@ void ANewMazeBuilder::Tick(float DeltaTime)
 void ANewMazeBuilder::Generatefloor()
 {
     UE_LOG(LogTemp, Warning, TEXT("Generatefloor"));
-       FloorMesh->ClearAllMeshSections();
+      // FloorMesh->ClearAllMeshSections();
 
        TArray<FVector> Vertices;
            Vertices.Add(FVector(0.0f, 0.0f, 0.0f));
@@ -64,18 +69,22 @@ void ANewMazeBuilder::Generatefloor()
        FloorMesh->CreateMeshSection(0, Vertices, Triangles,  TArray<FVector>(), UVCoords, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
        
 }
+
+
 void ANewMazeBuilder::GenerateMaze()
 {
 
-    GenerateWall( FVector(WallWidth/2,mapLength/2,WallHeight/2),mapLength,false);
+        GenerateWall( FVector(WallWidth/2,mapLength/2,WallHeight/2),mapLength,false);
     
-    GenerateWall(FVector(mapLength-WallWidth/2,mapLength/2,WallHeight/2),mapLength,false);
+        GenerateWall(FVector(mapLength-WallWidth/2,mapLength/2,WallHeight/2),mapLength,false);
     
-    GenerateWall(FVector(MapWidth/2,WallWidth/2,WallHeight/2),mapLength,true);
+        GenerateWall(FVector(MapWidth/2,WallWidth/2,WallHeight/2),mapLength,true);
     
-    GenerateWall(FVector(MapWidth/2,mapLength-WallWidth/2,WallHeight/2),mapLength,true);
+        GenerateWall(FVector(MapWidth/2,mapLength-WallWidth/2,WallHeight/2),mapLength,true);
     
-    MazeSplit(FVector2D(0, 0),FVector2D(MapWidth, mapLength),FVector2D(0, 0));
+        MazeSplit(FVector2D(0, 0),FVector2D(MapWidth, mapLength),FVector2D(0, 0));
+    
+   
 }
 
 void ANewMazeBuilder::MazeSplit(FVector2D Botleft,FVector2D TopRight,FVector2D Door)
@@ -95,17 +104,17 @@ void ANewMazeBuilder::MazeSplit(FVector2D Botleft,FVector2D TopRight,FVector2D D
     
         return;
     }
-    float RandY = RandomFloat(TopRight.Y-2*doorwidth,Botleft.Y+doorwidth*2);
+    float RandY = RandomFloatForDoor(TopRight.Y-2*doorwidth,Botleft.Y+doorwidth*2,Door.Y);
     
-    while(RandY>(Door.Y-2*doorwidth)&&RandY<(Door.Y+2*doorwidth)){
-        RandY = RandomFloat(TopRight.Y-2*doorwidth,Botleft.Y+doorwidth*2);
-    }
-    
-    float RandX = RandomFloat(TopRight.X-2*doorwidth,Botleft.X+doorwidth*2);
-    while(RandX>(Door.X-2*doorwidth)&&RandX<(Door.X+2*doorwidth)){
-          RandX = RandomFloat(TopRight.X-2*doorwidth,Botleft.X+doorwidth*2);
-      }
-    int RandDoor =1 + rand()%4;
+    // while(RandY>(Door.Y-2*doorwidth)&&RandY<(Door.Y+2*doorwidth)){
+    //     RandY = RandomFloat(TopRight.Y-2*doorwidth,Botleft.Y+doorwidth*2);
+    // }
+    //
+     float RandX = RandomFloatForDoor(TopRight.X-2*doorwidth,Botleft.X+doorwidth*2,Door.X);
+    // while(RandX>(Door.X-2*doorwidth)&&RandX<(Door.X+2*doorwidth)){
+    //       RandX = RandomFloat(TopRight.X-2*doorwidth,Botleft.X+doorwidth*2);
+    //   }
+    int RandDoor =1 + FMath::Rand()%4;
     //int RandDoor = 3;
 
     float TOPDoorPos = RandomFloat(TopRight.X-doorwidth,RandX+doorwidth);
@@ -173,11 +182,30 @@ void ANewMazeBuilder::GenerateWall(FVector pos,float WallLength,bool Rotation){
 
 
 float ANewMazeBuilder::RandomFloat(float a, float b){
-    float random = ((float) rand()) / (float) RAND_MAX;
-       float diff = b - a;
-       float r = random * diff;
-       return a + r;
+    // float random = ((float) FMath::FRand()) / (float) RAND_MAX;
+    //     float diff = b - a;
+    //     float r = random * diff;
+    //     return a + r;
+   return FMath::RandRange(a,b);
+}
+float ANewMazeBuilder::RandomFloatForDoor(float a, float b,float DoorPos)
+{
+    // float random = ((float) rand()) / (float) RAND_MAX;
+    // float diff = b - a;
+    // float r = random * diff;
+
+    float tempRandom = FMath::RandRange(a,b);
+    if(tempRandom>DoorPos-doorwidth&&tempRandom<DoorPos+doorwidth)
+    {
+        return RandomFloatForDoor( a,  b, DoorPos);
+    }
+    
+        return tempRandom;
+        
     
 }
 
 
+
+
+  
