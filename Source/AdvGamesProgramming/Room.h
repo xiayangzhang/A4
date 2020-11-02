@@ -54,10 +54,10 @@ public:
    UFUNCTION(BlueprintCallable)
    FVector GenRandomPos();
     UFUNCTION(BlueprintCallable)
-    float RandomFloat(float a, float b);
+    float RoomRandomFloat(float a, float b);
 
     UFUNCTION(BlueprintCallable)
-     int RandomInt(int a, int b);
+     int RoomRandomInt(int a, int b);
 
     UFUNCTION(BlueprintImplementableEvent)
     void GenObj();

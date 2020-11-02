@@ -34,13 +34,13 @@ void ARoom::GenEnemy()
 }
 FVector ARoom::GenRandomPos()
 {
-    float x = Pos.X+RandomFloat(-RoomWidth/2+100.0f,RoomWidth/2-100.0f);
-    float y = Pos.Y+RandomFloat(-RoomLength/2+100.0f,RoomLength/2-100.0f);
+    float x = Pos.X+RoomRandomFloat(-RoomWidth/2+100.0f,RoomWidth/2-100.0f);
+    float y = Pos.Y+RoomRandomFloat(-RoomLength/2+100.0f,RoomLength/2-100.0f);
     
     return FVector(x,y,20);
 }
 
-float ARoom::RandomFloat(float a, float b) {
+float ARoom::RoomRandomFloat(float a, float b) {
     // float random = ((float) rand()) / (float) RAND_MAX;
     // float diff = b - a;
     // float r = random * diff;
@@ -51,7 +51,7 @@ void ARoom::init(int32 seed)
 FMath::RandInit(seed);
     GenObj();
 }
-int ARoom::RandomInt(int a, int b) {
+int ARoom::RoomRandomInt(int a, int b) {
     // float random = ((float) rand()) / (float) RAND_MAX;
     // float diff = b - a;
     // float r = random * diff;
