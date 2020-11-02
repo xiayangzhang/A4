@@ -17,9 +17,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Source/AdvGamesProgramming/MazeWall.h" />
-        <option value="$PROJECT_DIR$/Source/AdvGamesProgramming/NewMazeBuilder.cpp" />
         <option value="$PROJECT_DIR$/Source/AdvGamesProgramming/MazeWall.cpp" />
+        <option value="$PROJECT_DIR$/Source/AdvGamesProgramming/NewMazeBuilder.h" />
+        <option value="$PROJECT_DIR$/Source/AdvGamesProgramming/NewMazeBuilder.cpp" />
+        <option value="$PROJECT_DIR$/Source/AdvGamesProgramming/MazeWall.h" />
       </list>
     </option>
   </component>
@@ -267,7 +268,7 @@
       <updated>1604173341899</updated>
       <workItem from="1604173347659" duration="5394000" />
       <workItem from="1604221043066" duration="3722000" />
-      <workItem from="1604305895816" duration="2847000" />
+      <workItem from="1604305895816" duration="5790000" />
     </task>
     <servers />
   </component>
@@ -284,30 +285,30 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2742" y="274" key="#xdebugger.XInspectDialog/-3072.-840.1536.940/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1604221321959" />
-    <state width="1877" height="228" key="GridCell.Tab.0.bottom" timestamp="1604308643230">
+    <state width="1877" height="12" key="GridCell.Tab.0.bottom" timestamp="1604312677103">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1878" height="282" key="GridCell.Tab.0.bottom/-3072.-840.1536.940/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1604175747102" />
     <state width="1878" height="162" key="GridCell.Tab.0.bottom/-3072.-840.1536.940/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1604224247416" />
-    <state width="1877" height="228" key="GridCell.Tab.0.bottom/-3072.-840.1536.940/1920.0.1920.1080/0.0.1920.1040@1920.0.1920.1080" timestamp="1604308643230" />
-    <state width="1877" height="228" key="GridCell.Tab.0.center" timestamp="1604308643230">
+    <state width="1877" height="12" key="GridCell.Tab.0.bottom/-3072.-840.1536.940/1920.0.1920.1080/0.0.1920.1040@1920.0.1920.1080" timestamp="1604312677103" />
+    <state width="1877" height="12" key="GridCell.Tab.0.center" timestamp="1604312677103">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1878" height="282" key="GridCell.Tab.0.center/-3072.-840.1536.940/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1604175747102" />
     <state width="1878" height="162" key="GridCell.Tab.0.center/-3072.-840.1536.940/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1604224247416" />
-    <state width="1877" height="228" key="GridCell.Tab.0.center/-3072.-840.1536.940/1920.0.1920.1080/0.0.1920.1040@1920.0.1920.1080" timestamp="1604308643230" />
-    <state width="1877" height="228" key="GridCell.Tab.0.left" timestamp="1604308643230">
+    <state width="1877" height="12" key="GridCell.Tab.0.center/-3072.-840.1536.940/1920.0.1920.1080/0.0.1920.1040@1920.0.1920.1080" timestamp="1604312677103" />
+    <state width="1877" height="12" key="GridCell.Tab.0.left" timestamp="1604312677102">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1878" height="282" key="GridCell.Tab.0.left/-3072.-840.1536.940/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1604175747101" />
     <state width="1878" height="162" key="GridCell.Tab.0.left/-3072.-840.1536.940/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1604224247416" />
-    <state width="1877" height="228" key="GridCell.Tab.0.left/-3072.-840.1536.940/1920.0.1920.1080/0.0.1920.1040@1920.0.1920.1080" timestamp="1604308643230" />
-    <state width="1877" height="228" key="GridCell.Tab.0.right" timestamp="1604308643230">
+    <state width="1877" height="12" key="GridCell.Tab.0.left/-3072.-840.1536.940/1920.0.1920.1080/0.0.1920.1040@1920.0.1920.1080" timestamp="1604312677102" />
+    <state width="1877" height="12" key="GridCell.Tab.0.right" timestamp="1604312677103">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1878" height="282" key="GridCell.Tab.0.right/-3072.-840.1536.940/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1604175747102" />
     <state width="1878" height="162" key="GridCell.Tab.0.right/-3072.-840.1536.940/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1604224247416" />
-    <state width="1877" height="228" key="GridCell.Tab.0.right/-3072.-840.1536.940/1920.0.1920.1080/0.0.1920.1040@1920.0.1920.1080" timestamp="1604308643230" />
+    <state width="1877" height="12" key="GridCell.Tab.0.right/-3072.-840.1536.940/1920.0.1920.1080/0.0.1920.1040@1920.0.1920.1080" timestamp="1604312677103" />
     <state width="1877" height="228" key="GridCell.Tab.1.bottom" timestamp="1604308643231">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -393,23 +394,24 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2431" y="257" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/-3072.-840.1536.940/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1604221309910" />
-    <state x="2537" y="240" key="run.anything.popup" timestamp="1604174415702">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="2537" y="249" key="run.anything.popup" timestamp="1604313563750">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2537" y="240" key="run.anything.popup/-3072.-840.1536.940/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1604174415702" />
+    <state x="2537" y="249" key="run.anything.popup/-3072.-840.1536.940/1920.0.1920.1080/0.0.1920.1040@1920.0.1920.1080" timestamp="1604313563750" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/AdvGamesProgramming/MazeWall.h</url>
-          <line>29</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Source/AdvGamesProgramming/MultiplayerGameMode.cpp</url>
           <line>3</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Source/AdvGamesProgramming/MazeWall.cpp</url>
+          <line>2</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

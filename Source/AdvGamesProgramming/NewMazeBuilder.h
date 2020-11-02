@@ -58,6 +58,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TSubclassOf<AMazeWall> BPWalls;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AActor> GameFlag;
 	//UFUNCTION(Server,reliable)
     void GenerateMaze();
     

@@ -31,7 +31,8 @@ public:
      //UProceduralMeshComponent* WallTopMeshs;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
        UStaticMesh* wallTop1;
-    
+
+	
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
        UStaticMesh* wallTop2;
     
@@ -51,6 +52,9 @@ public:
 	float WallLength;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float WalHeight;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//AActor GameFlag;
 
 	//UFUNCTION(NetMulticast,Reliable)
     void GenerateWalls(float Length,float Width,float WallHeight,float seed);

@@ -83,8 +83,11 @@ void ANewMazeBuilder::GenerateMaze()
         GenerateWall(FVector(MapWidth/2,mapLength-WallWidth/2,WallHeight/2),mapLength,true);
     
         MazeSplit(FVector2D(0, 0),FVector2D(MapWidth, mapLength),FVector2D(0, 0));
+       int randmonRoom = RandomFloat(0,Rooms.Num());
+     FVector location = Rooms[randmonRoom]->GenRandomPos();
+     FRotator rotaction = GetActorRotation();
     
-   
+    GetWorld()->SpawnActor<AActor>(GameFlag, location, rotaction);
 }
 
 void ANewMazeBuilder::MazeSplit(FVector2D Botleft,FVector2D TopRight,FVector2D Door)
@@ -98,6 +101,7 @@ void ANewMazeBuilder::MazeSplit(FVector2D Botleft,FVector2D TopRight,FVector2D D
         ,(TopRight.Y-Botleft.Y)/2+Botleft.Y,0);
         newRoom = GetWorld()->SpawnActor<ARoom>(BPRoom,RoomPos,FRotator(0.f, 0.f, 0.f));
         newRoom->Pos = RoomPos;
+        Rooms.Add(newRoom);
         newRoom->RoomLength =TopRight.Y-Botleft.Y;
         newRoom->RoomWidth =TopRight.X-Botleft.X;
        // newRoom->randomSeed = randomSeed;
