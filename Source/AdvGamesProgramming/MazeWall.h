@@ -23,7 +23,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 randomSeed;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
      UProceduralMeshComponent* WallMeshs;
     // UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -52,8 +53,10 @@ public:
 	float WalHeight;
 
 	//UFUNCTION(NetMulticast,Reliable)
-    void GenerateWalls(float Length,float Width,float WallHeight);
+    void GenerateWalls(float Length,float Width,float WallHeight,float seed);
 
+	
     float RandomFloat(float a, float b);
+	
      void GenerateWallTops(float length,float width,float height,int Mesh);
 };

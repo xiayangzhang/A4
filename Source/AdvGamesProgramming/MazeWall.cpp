@@ -19,7 +19,8 @@ AMazeWall::AMazeWall()
 void AMazeWall::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	FMath::RandInit(randomSeed);
+
 }
 
 // Called every frame
@@ -29,8 +30,9 @@ void AMazeWall::Tick(float DeltaTime)
 
 }
 
-void AMazeWall::GenerateWalls(float Width,float Length,float Height){
-    
+void AMazeWall::GenerateWalls(float Width,float Length,float Height,float seed){
+    randomSeed = seed;
+	FMath::RandInit(randomSeed);
         WallMeshs->ClearAllMeshSections();
         TArray<FVector> TempVertices;
         TArray<int32> TempTriangles;
@@ -41,14 +43,14 @@ void AMazeWall::GenerateWalls(float Width,float Length,float Height){
          FVector BoxRadius = FVector(Length/2,Width/2,Height/2);
         UKismetProceduralMeshLibrary::GenerateBoxMesh(BoxRadius,TempVertices,TempTriangles,TempNormals,TempUVCoords,TempTangents);    
         WallMeshs->CreateMeshSection(0, TempVertices, TempTriangles, TempNormals, TempUVCoords, TArray<FColor>(), TempTangents, true);
-    WallWidth = Width;
-    WallLength = Length;
-    WalHeight = Height;   
+		WallWidth = Width;
+		WallLength = Length;
+		WalHeight = Height;   
     
     //int TopPos =-Length/2+100;
 for(int i = -Length/2+100;i<Length/2-120;i+=50)
 {
-	int RandMesh =1 + rand()%3;
+	int RandMesh =1 + FMath::Rand()%3;
 	if(i%3==0)
 	{
 		RandMesh=3;
@@ -69,10 +71,12 @@ for(int i = -Length/2+100;i<Length/2-120;i+=50)
  
 }
 float AMazeWall::RandomFloat(float a, float b){
-    float random = ((float) rand()) / (float) RAND_MAX;
-    float diff = b - a;
-    float r = random * diff;
-    return a + r;
+    // float random = ((float) rand()) / (float) RAND_MAX;
+    // float diff = b - a;
+    // float r = random * diff;
+    // return a + r;
+	return FMath::RandRange(a,b);
+
 }
 
 void AMazeWall::GenerateWallTops(float LengthOffSet,float WidthOffSet,float HeightOffSet,int MeshIndex)

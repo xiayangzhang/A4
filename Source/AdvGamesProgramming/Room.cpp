@@ -41,24 +41,19 @@ FVector ARoom::GenRandomPos()
 }
 
 float ARoom::RandomFloat(float a, float b) {
-    float random = ((float) rand()) / (float) RAND_MAX;
-    float diff = b - a;
-    float r = random * diff;
-    return a + r;
+    // float random = ((float) rand()) / (float) RAND_MAX;
+    // float diff = b - a;
+    // float r = random * diff;
+   return FMath::RandRange(a,b);
 }
-//void ARoom::init()
-//{
-////     ULineBatchComponent* const LineBatcher = GetWorld()->PersistentLineBatcher;
-////    FVector Widthstart = FVector(Pos.X-RoomWidth/2,Pos.Y,20.0f);
-////    FVector Widthend =  FVector(Pos.X+RoomWidth/2,Pos.Y,20.0f);
-////
-////   LineBatcher->DrawLine(Widthstart, Widthend, FLinearColor::Red, 10, 0.f);
-////
-////    ULineBatchComponent* const LineBatcherLength = GetWorld()->PersistentLineBatcher;
-////     FVector Lengstart = FVector(Pos.X,Pos.Y-RoomLength/2,20.0f);
-////     FVector Lengend =  FVector(Pos.X,Pos.Y+RoomLength/2,20.0f);
-////
-////    LineBatcherLength->DrawLine(Lengstart, Lengend, FLinearColor::Blue, 10, 0.f);
-//
-//    //GenEnemy();
-//}
+void ARoom::init(int32 seed)
+{
+FMath::RandInit(seed);
+    GenObj();
+}
+int ARoom::RandomInt(int a, int b) {
+    // float random = ((float) rand()) / (float) RAND_MAX;
+    // float diff = b - a;
+    // float r = random * diff;
+    return FMath::RandRange(a,b);
+}

@@ -27,7 +27,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float randomSeed;
+	int32 randomSeed;
 	
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     UProceduralMeshComponent* FloorMesh;

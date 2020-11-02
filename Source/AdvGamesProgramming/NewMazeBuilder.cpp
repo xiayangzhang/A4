@@ -28,12 +28,11 @@ ANewMazeBuilder::ANewMazeBuilder()
 void ANewMazeBuilder::BeginPlay()
 {
     Super::BeginPlay();
-   // FRandomStream::Initialize(randomSeed);
-   // Generatefloor();
-    FMath::RandInit(randomSeed);
 
+    FMath::RandInit(randomSeed);
     GenerateMaze();
     FNavigationSystem::UpdateComponentData(*FloorMesh);
+
 }
 
 // Called every frame
@@ -75,6 +74,7 @@ void ANewMazeBuilder::GenerateMaze()
 {
 
         GenerateWall( FVector(WallWidth/2,mapLength/2,WallHeight/2),mapLength,false);
+
     
         GenerateWall(FVector(mapLength-WallWidth/2,mapLength/2,WallHeight/2),mapLength,false);
     
@@ -100,7 +100,8 @@ void ANewMazeBuilder::MazeSplit(FVector2D Botleft,FVector2D TopRight,FVector2D D
         newRoom->Pos = RoomPos;
         newRoom->RoomLength =TopRight.Y-Botleft.Y;
         newRoom->RoomWidth =TopRight.X-Botleft.X;
-        newRoom->init();
+       // newRoom->randomSeed = randomSeed;
+        newRoom->init(randomSeed);
     
         return;
     }
@@ -173,7 +174,7 @@ void ANewMazeBuilder::GenerateWall(FVector pos,float WallLength,bool Rotation){
     
     //   AMazeWall* newWall =  GetWorld( )->SpawnActor<AMazeWall>(BPWalls, pos, FRotator(0.0f, 0, 00.f));
      AMazeWall* newWall =  GetWorld( )->SpawnActor<AMazeWall>(BPWalls, pos, FRotator(0.0f, 0.0f, 00.f));
-    newWall->GenerateWalls(WallWidth,WallLength+WallWidth/2, WallHeight);
+    newWall->GenerateWalls(WallWidth,WallLength+WallWidth/2, WallHeight,randomSeed);
  if(Rotation==false)
     {
         newWall->SetActorRotation(FRotator(0.0f, 90.0f, 00.f), ETeleportType::ResetPhysics);

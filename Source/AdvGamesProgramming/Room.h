@@ -22,7 +22,8 @@ protected:
 public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;
-    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 randomSeed;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FVector Pos;
     
@@ -44,15 +45,20 @@ public:
 
     
     
-    UFUNCTION(BlueprintImplementableEvent)
-    void init();
+ //   UFUNCTION(BlueprintImplementableEvent)
+    void init(int32 seed);
     
     UFUNCTION(BlueprintCallable)
     void GenEnemy();
     
    UFUNCTION(BlueprintCallable)
    FVector GenRandomPos();
-    
+    UFUNCTION(BlueprintCallable)
     float RandomFloat(float a, float b);
 
+    UFUNCTION(BlueprintCallable)
+     int RandomInt(int a, int b);
+
+    UFUNCTION(BlueprintImplementableEvent)
+    void GenObj();
 };
